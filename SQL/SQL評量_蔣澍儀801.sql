@@ -101,13 +101,17 @@ GROUP BY b.branch_name, b.branch_tel;
 SELECT
   b.branch_name AS 轄管分局,
   b.branch_tel AS 分局電話,
-  COUNT(f.facility_id) OVER (PARTITION BY b.branch_id) AS 設施數量
+  COUNT(f.facility_id) AS 設施數量
 FROM
   facility f
 JOIN
   branch b ON f.branch_id = b.branch_id
 WHERE
-  f.facility_people > 1000;
+  f.facility_people > 1000
+GROUP BY
+  b.branch_name,b.branch_tel;
+
+
 
 --4.3 承上題， 再補上避難設施地址、類型
 SELECT
