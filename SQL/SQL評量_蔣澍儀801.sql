@@ -110,16 +110,33 @@ WHERE
   f.facility_people > 1000
 GROUP BY
   b.branch_name,b.branch_tel;
-
+  
+--4.3 承上題， 再補上避難設施地址、類型
+SELECT 
+    b.branch_name AS 轄管分局,
+    b.branch_tel AS 分局連絡電話,
+    COUNT(f.facility_id) AS 設施數量,
+    f.facility_add AS 避難設施地址,
+    fc.facility_name AS 類型
+FROM 
+    facility f
+JOIN 
+    branch b ON f.branch_id = b.branch_id
+JOIN 
+    facility_category fc ON f.facility_category = fc.facility_id
+WHERE 
+    f.facility_people > 1000
+GROUP BY 
+    b.branch_name, b.branch_tel,f.facility_add,fc.facility_name;
 
 
 --4.3 承上題， 再補上避難設施地址、類型
 SELECT
   b.branch_name AS 轄管分局,
   b.branch_tel AS 分局電話,
+  COUNT(f.facility_id) OVER (PARTITION BY b.branch_id) AS 設施數量,
   f.facility_add AS 避難設施地址,
-  fc.facility_name AS 類型,
-  COUNT(f.facility_id) OVER (PARTITION BY b.branch_id) AS 設施數量
+  fc.facility_name AS 類型
 FROM
   facility f
 JOIN
