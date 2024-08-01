@@ -97,7 +97,7 @@ JOIN branch b ON f.branch_id = b.branch_id
 WHERE f.facility_people > 1000
 GROUP BY b.branch_name, b.branch_tel;
 
---4.2 列出轄管區域內有單一避難設施大於1000容人數量的轄管分局及分局連絡電話並計算出各轄管分局數量 。
+--4.2 列出轄管區域內有單一避難設施大於1000容人數量的轄管分局及分局連絡電話並計算出各設施數量 。
 SELECT
   b.branch_name AS 轄管分局,
   b.branch_tel AS 分局電話,
