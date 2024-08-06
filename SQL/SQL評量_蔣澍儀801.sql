@@ -88,7 +88,7 @@ insert into BRANCH(BRANCH_ID,BRANCH_NAME,BRANCH_ADD,BRANCH_TEL)
 values ('M002', '苗栗分局','苗栗縣苗栗市金鳳街109號','03 732 0059');
 insert into BRANCH(BRANCH_ID,BRANCH_NAME,BRANCH_ADD,BRANCH_TEL)
 values ('M003', '頭份分局','苗栗縣頭份市中興路503號','03 766 3004');
-COMMIT;
+commit;
 
 --4.1 列出轄管區域內有單一避難設施大於1000容人數量的轄管分局及分局連絡電話 。
 select B.BRANCH_NAME as 轄管分局, B.BRANCH_TEL as 分局電話
@@ -172,7 +172,7 @@ select
     STUDENT.FACILITY F
  left join
     STUDENT.VILLAGE V on F.VILLAGE_ID = V.VILLAGE_ID
- left JOIN
+ left join
     STUDENT.FACILITY_CATEGORY FC on F.FACILITY_CATEGORY = FC.FACILITY_ID
  where 
 --    FC.FACILITY_NAME='公寓' OR FC.FACILITY_NAME='大樓';
