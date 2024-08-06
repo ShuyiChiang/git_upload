@@ -105,7 +105,7 @@ select
  from
   STUDENT.FACILITY F
  left join
-  STUDENT.BRANCH b on F.BRANCH_ID = B.BRANCH_ID
+  STUDENT.BRANCH B on F.BRANCH_ID = B.BRANCH_ID
  where
   F.FACILITY_PEOPLE > 1000
  group by
@@ -119,11 +119,11 @@ select
     F.FACILITY_ADD as 避難設施地址,
     FC.FACILITY_NAME as 類型
  from
-    STUDENT.facility f
+    STUDENT.FACILITY F
  left join
-    STUDENT.branch b on f.branch_id = b.branch_id
+    STUDENT.BRANCH B on F.BRANCH_ID = B.BRANCH_ID
  left join
-    STUDENT.facility_category fc on f.facility_category = fc.facility_id
+    STUDENT.FACILITY_CATEGORY FC on F.FACILITY_CATEGORY = FC.FACILITY_ID
  where
     F.FACILITY_PEOPLE > 1000
  group by
@@ -180,15 +180,15 @@ select
 
 --5
 create table STUDENT.FACILITY2 as select * from FACILITY;--避免改到練習4的表格所以複製一份
-commit;
+ commit;
 
 --5.1 更新避難設施地址 是 「苗栗縣竹南鎮和平街79號」的容人數量為 5000 人 。
 update STUDENT.FACILITY2
  set FACILITY_PEOPLE='5000'
  where FACILITY_ADD='苗栗縣竹南鎮和平街79號';
-commit;
+ commit;
 
 --5.2 刪除避難設施小 於 1000 容人數量的 資料 。
 delete from STUDENT.FACILITY2
  where FACILITY_PEOPLE < 1000;
-commit;
+ commit;
