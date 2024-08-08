@@ -1,3 +1,6 @@
+
+select * from STUDENT.CARS where MANUFACTURER=Toyota;
+
 CREATE TABLE TEST2
 (
   COLUMN1 VARCHAR2(20) 
