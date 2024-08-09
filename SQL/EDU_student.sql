@@ -1,4 +1,4 @@
-
+delete from STUDENT.CARS where MANUFACTURER = 'aaa' and TYPE = 'bbb';
 select * from STUDENT.CARS where MANUFACTURER=Toyota;
 
 CREATE TABLE TEST2

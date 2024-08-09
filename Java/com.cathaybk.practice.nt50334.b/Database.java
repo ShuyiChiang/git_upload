@@ -31,7 +31,7 @@ public class Database {
 			// ResultSet物件儲存查詢結果
 			ResultSet rs = pstmt.executeQuery();
 
-			// 使用StringBuilder做ㄋ字串串接
+			// 使用StringBuilder做字串串接
 			StringBuilder sb = new StringBuilder();
 
 			// 取得CARS table內所有資料存成List<Map> 並一一印出。

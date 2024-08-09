@@ -8,7 +8,6 @@ import java.util.Scanner;
 public class Calendar {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		int month = 0;
 
@@ -59,7 +58,7 @@ public class Calendar {
 			}
 		}
 
-		//關閉scanner
+		// 關閉scanner
 		if (scanner != null) {
 			scanner.close();//
 		}
