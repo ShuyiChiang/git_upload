@@ -20,6 +20,7 @@ public class Employee implements IWork {
 
 	@Override // 實作IWork介面的printInfo方法
 	public void printInfo() {
+		System.out.println("薪資單");
 		System.out.println("姓名: " + name + " 工作部門: " + department);
 		System.out.println("月薪: " + salary);
 	}
