@@ -1,6 +1,5 @@
 package com.cathaybk.practice.nt50334.b;
 
-import java.lang.classfile.instruction.SwitchCase;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,7 +10,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Database {
@@ -128,6 +126,11 @@ public class Database {
 			doDelete(deleteManufacturer, deleteType);
 			break;
 
+		}
+
+		// 關閉scanner
+		if (scanner != null) {
+			scanner.close();//
 		}
 	}
 

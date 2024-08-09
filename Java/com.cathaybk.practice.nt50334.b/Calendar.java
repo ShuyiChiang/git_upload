@@ -5,8 +5,6 @@ import java.time.format.TextStyle;
 import java.util.Locale;
 import java.util.Scanner;
 
-import javax.sql.rowset.JoinRowSet;
-
 public class Calendar {
 
 	public static void main(String[] args) {
@@ -59,6 +57,11 @@ public class Calendar {
 			if ((day + weekDay) % 7 == 0) {
 				System.out.println();
 			}
+		}
+
+		//關閉scanner
+		if (scanner != null) {
+			scanner.close();//
 		}
 
 	}

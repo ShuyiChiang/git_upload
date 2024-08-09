@@ -1,5 +1,4 @@
-update STUDENT.CARS set MIN_PRICE=123 ,PRICE=321 where MANUFACTURER ='aaa' and TYPE ='bbb';
-delete from STUDENT.CARS where MANUFACTURER = 'aaa' and TYPE ='bbb';
+
 select * from STUDENT.CARS where MANUFACTURER=Toyota;
 
 CREATE TABLE TEST2
