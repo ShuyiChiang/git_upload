@@ -50,10 +50,10 @@ public class Database {
 
 			for (Map<String, String> map : carList) {
 				BigDecimal minPrice = new BigDecimal(map.get("MIN_PRICE"));
-				BigDecimal Price = new BigDecimal(map.get("PRICE"));
+				BigDecimal price = new BigDecimal(map.get("PRICE"));
 
 				sb.append("製造商： ").append(map.get("MANUFACTURER")).append("，型號：").append(map.get("TYPE")).append("，售價：")
-						.append(Price.toPlainString()).append("，底價：").append(minPrice.toPlainString());
+						.append(price.toPlainString()).append("，底價：").append(minPrice.toPlainString());
 
 				System.out.println(sb.toString());
 				sb.setLength(0);
@@ -62,10 +62,9 @@ public class Database {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		Scanner scanner = new Scanner(System.in);
 		String method;
-
+		
 		while (true) { // 無限迴圈，直到輸入正確指令為止
 			System.out.print("請選擇以下指令輸入:select、insert、update、delete：");
 			method = scanner.next();
@@ -78,80 +77,76 @@ public class Database {
 			}
 		}
 
-		switch (method) {
-		case "select":
-			System.out.print("請輸入製造商:");
-			String selectManufacturer = scanner.next();
+			switch (method) {
+			case "select":
+				String selectManufacturer = getInput("請輸入製造商:", scanner);
+				String selectType = getInput("請輸入類型:", scanner);
+				doQuery(selectManufacturer, selectType);
+				scanner.close();
+				return;
 
-			System.out.print("請輸入類型:");
-			String selectType = scanner.next();
-			doQuery(selectManufacturer, selectType);
-			break;
-		case "insert":
-			System.out.print("請輸入製造商:");
-			String insertManufacturer = scanner.next();
+			case "insert":
+				String insertManufacturer = getInput("請輸入製造商:", scanner);
+				String insertType = getInput("請輸入類型:", scanner);
+				BigDecimal insertMinPrice = getBigDecimalInput("請輸入底價:", scanner);
+				BigDecimal insertPrice = getBigDecimalInput("請輸入售價:", scanner);
+				doInsert(insertManufacturer, insertType, insertMinPrice, insertPrice);
+				scanner.close();
+				return;
 
-			System.out.print("請輸入類型:");
-			String insertType = scanner.next();
+			case "update":
+				String updateManufacturer = getInput("請輸入製造商:", scanner);
+				String updateType = getInput("請輸入類型:", scanner);
+				BigDecimal updateMinPrice = getBigDecimalInput("請輸入底價:", scanner);
+				BigDecimal updatePrice = getBigDecimalInput("請輸入售價:", scanner);
+				doUpdate(updateManufacturer, updateType, updateMinPrice, updatePrice);
+				scanner.close();
+				return;
 
-			System.out.print("請輸入底價:");
-			BigDecimal insertMinPrice = scanner.nextBigDecimal();
+			case "delete":
+				String deleteManufacturer = getInput("請輸入製造商:", scanner);
+				String deleteType = getInput("請輸入類型:", scanner);
+				doDelete(deleteManufacturer, deleteType);
+				scanner.close();
+				return;
 
-			System.out.print("請輸入售價:");
-			BigDecimal insertPrice = scanner.nextBigDecimal();
-			doInsert(insertManufacturer, insertType, insertMinPrice, insertPrice);
-			break;
+			default:
+				scanner.close(); // 關閉scanner
+				break;
+			}
 
-		case "update":
-			System.out.print("請輸入製造商:");
-			String updateManufacturer = scanner.next();
+	}
 
-			System.out.print("請輸入類型:");
-			String updateType = scanner.next();
+	private static String getInput(String prompt, Scanner scanner) {
+		System.out.print(prompt);
+		return scanner.next();
+	}
 
-			System.out.print("請輸入底價:");
-			BigDecimal updateMinPrice = scanner.nextBigDecimal();
-
-			System.out.print("請輸入售價:");
-			BigDecimal updatePrice = scanner.nextBigDecimal();
-			doUpdate(updateManufacturer, updateType, updateMinPrice, updatePrice);
-			break;
-
-		case "delete":
-			System.out.print("請輸入製造商:");
-			String deleteManufacturer = scanner.next();
-
-			System.out.print("請輸入類型:");
-			String deleteType = scanner.next();
-			doDelete(deleteManufacturer, deleteType);
-			break;
-
-		}
-
-		// 關閉scanner
-		if (scanner != null) {
-			scanner.close();//
-		}
+	private static BigDecimal getBigDecimalInput(String prompt, Scanner scanner) {
+		System.out.print(prompt);
+		return scanner.nextBigDecimal();
 	}
 
 	public static void doQuery(String manufacturer, String type) throws SQLException {
 		try (Connection conn = DriverManager.getConnection(CONN_URL, "student", "student123456");) {
+			try (PreparedStatement pstmt = conn.prepareStatement(QUERY_CARS_SQL);) {
 
-			PreparedStatement pstmt = conn.prepareStatement(QUERY_CARS_SQL);
-			pstmt.setString(1, manufacturer);
-			pstmt.setString(2, type);
+				pstmt.setString(1, manufacturer);
+				pstmt.setString(2, type);
 
-			// ResultSet物件儲存查詢結果
-			ResultSet rs = pstmt.executeQuery();
+				// ResultSet物件儲存查詢結果
+				ResultSet rs = pstmt.executeQuery();
 
-			// 使用StringBuilder做字串串接
-			StringBuilder sb = new StringBuilder();
-			while (rs.next()) {
-				sb.append("製造商： ").append(rs.getString("MANUFACTURER")).append("，型號：").append(rs.getString("TYPE"))
-						.append("，售價：").append(rs.getString("PRICE")).append("，底價：").append(rs.getString("MIN_PRICE"));
+				// 使用StringBuilder做字串串接
+				StringBuilder sb = new StringBuilder();
+				while (rs.next()) {
+					sb.append("製造商： ").append(rs.getString("MANUFACTURER")).append("，型號：").append(rs.getString("TYPE"))
+							.append("，售價：").append(rs.getString("PRICE")).append("，底價：")
+							.append(rs.getString("MIN_PRICE"));
+				}
+				System.out.println(sb.toString());
+
 			}
-			System.out.println(sb.toString());
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -159,25 +154,24 @@ public class Database {
 
 	public static void doInsert(String manufacturer, String type, BigDecimal minPrice, BigDecimal price) {
 		try (Connection conn = DriverManager.getConnection(CONN_URL, "student", "student123456");) {
-			try {
-				conn.setAutoCommit(false);
-				PreparedStatement pstmt = conn.prepareStatement(INSERT_CARS_SQL);
-				pstmt.setString(1, manufacturer);
-				pstmt.setString(2, type);
-				pstmt.setBigDecimal(3, minPrice);
-				pstmt.setBigDecimal(4, price);
-				pstmt.executeUpdate();
+				try(PreparedStatement pstmt = conn.prepareStatement(INSERT_CARS_SQL);)  {
+					conn.setAutoCommit(false);
+					pstmt.setString(1, manufacturer);
+					pstmt.setString(2, type);
+					pstmt.setBigDecimal(3, minPrice);
+					pstmt.setBigDecimal(4, price);
+					pstmt.executeUpdate();
 
-				conn.commit();
-				System.out.println("新增成功");
-			} catch (Exception e) {
-				System.out.println("新增失敗，原因：" + e.getMessage());
-				try {
-					conn.rollback();
-				} catch (SQLException sqle) {
-					System.out.println("rollback 失敗，原因：" + sqle.getMessage());
+					conn.commit();
+					System.out.println("新增成功");
+				} catch (Exception e) {
+					System.out.println("新增失敗，原因：" + e.getMessage());
+					try {
+						conn.rollback();
+					} catch (SQLException sqle) {
+						System.out.println("rollback 失敗，原因：" + sqle.getMessage());
+					}
 				}
-			}
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 		}
@@ -185,10 +179,8 @@ public class Database {
 
 	public static void doUpdate(String manufacturer, String type, BigDecimal minPrice, BigDecimal price) {
 		try (Connection conn = DriverManager.getConnection(CONN_URL, "student", "student123456");) {
-			try {
+			try (PreparedStatement pstmt = conn.prepareStatement(UPDATE_CARS_SQL);){
 				conn.setAutoCommit(false);
-				PreparedStatement pstmt = conn.prepareStatement(UPDATE_CARS_SQL);
-				;
 				pstmt.setBigDecimal(1, minPrice);
 				pstmt.setBigDecimal(2, price);
 				pstmt.setString(3, manufacturer);
@@ -212,10 +204,8 @@ public class Database {
 
 	public static void doDelete(String manufacturer, String type) {
 		try (Connection conn = DriverManager.getConnection(CONN_URL, "student", "student123456");) {
-			try {
+			try (PreparedStatement pstmt = conn.prepareStatement(DELETE_CARS_SQL);){
 				conn.setAutoCommit(false);
-				PreparedStatement pstmt = conn.prepareStatement(DELETE_CARS_SQL);
-				;
 				pstmt.setString(1, manufacturer);
 				pstmt.setString(2, type);
 				pstmt.executeUpdate();

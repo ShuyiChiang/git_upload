@@ -43,18 +43,14 @@ public class Cars {
 		Collections.sort(carList, new Comparator<Map<String, String>>() {
 			@Override
 			public int compare(Map<String, String> car1, Map<String, String> car2) {
-				BigDecimal price1 = new BigDecimal(car1.get("Price"));
-				BigDecimal price2 = new BigDecimal(car2.get("Price"));
-				int priceComparison = price2.compareTo(price1);
-				
+				int priceComparison = new BigDecimal(car2.get("Price")).compareTo(new BigDecimal(car1.get("Price")));
+
 				// 如果Price相同，再按Min.Price降序排序
-		        if (priceComparison == 0) {
-		            BigDecimal minPrice1 = new BigDecimal(car1.get("Min.Price"));
-		            BigDecimal minPrice2 = new BigDecimal(car2.get("Min.Price"));
-		            return minPrice2.compareTo(minPrice1);
-		        }
-		        
-		        return priceComparison;
+				if (priceComparison == 0) {
+					return new BigDecimal(car2.get("Min.Price")).compareTo(new BigDecimal(car1.get("Min.Price")));
+				}
+
+				return priceComparison;
 			}
 		});
 
