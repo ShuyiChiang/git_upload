@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 public class Cars {
 
@@ -70,19 +71,11 @@ public class Cars {
 		}
 
 		// 按Manufacturer分組算小計
-		// 使用TreeMap來儲存分組的車輛資料，以便按字母順序排序廠商名稱
-		Map<String, List<Map<String, String>>> groupedCars = new TreeMap<>();
-
-		// 遍歷carList中的每一個車輛資料
-		for (Map<String, String> car : carList) {
-			String manufacturer = car.get("﻿Manufacturer");
-
-			// 將車輛資料添加到對應廠商的分組中，若該廠商尚無資料，則創建一個新的清單
-			// 如果該key不存在，則執行 k -> new ArrayList<>()，為這個key創建並返回一個新的 ArrayList，並將這個新創建的
-			// ArrayList 作為該key的值插入到 groupedCars
-			groupedCars.computeIfAbsent(manufacturer, k -> new ArrayList<>()).add(car);
-
-		}
+		Map<String, List<Map<String, String>>> groupedCars = carList.stream()
+				.collect(Collectors.groupingBy(
+						car -> car.get("﻿Manufacturer"), //指定分組的標準，從每個Map<String, String>中提取Manufacturer為key
+						TreeMap::new, //使用TreeMap儲存分組結果(字母順序)
+						Collectors.toList()));//收集器，相同﻿Manufacturer收集為一個List
 
 		// 初始化總計的最低價與價格為0
 		BigDecimal totalMinPrice = BigDecimal.ZERO;
@@ -111,8 +104,7 @@ public class Cars {
 				subTotalPrice = subTotalPrice.add(price);
 
 				// 印出所有車輛
-				System.out.printf("%-12s %-12s %9s %8s%n", car.get("﻿Manufacturer"), car.get("Type"), minPrice,
-						price);
+				System.out.printf("%-12s %-12s %9s %8s%n", car.get("﻿Manufacturer"), car.get("Type"), minPrice, price);
 			}
 
 			// 印出小計列
