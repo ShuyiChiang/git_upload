@@ -111,12 +111,12 @@ public class Cars {
 				subTotalPrice = subTotalPrice.add(price);
 
 				// 印出所有車輛
-				System.out.printf("%-12s %-12s %-12s %-12s%n", car.get("﻿Manufacturer"), car.get("Type"), minPrice,
+				System.out.printf("%-12s %-12s %9s %8s%n", car.get("﻿Manufacturer"), car.get("Type"), minPrice,
 						price);
 			}
 
 			// 印出小計列
-			System.out.printf("%-11s %-12s %-12s %-12s%n", "小計", "", subTotalMinPrice, subTotalPrice);
+			System.out.printf("%-11s %-12s %9s %8s%n", "小計", "", subTotalMinPrice, subTotalPrice);
 
 			// 將該廠商的小計加到合計
 			totalMinPrice = totalMinPrice.add(subTotalMinPrice);
@@ -124,7 +124,7 @@ public class Cars {
 		}
 
 		// 印出合計列
-		System.out.printf("%-11s %-12s %-12s %-12s%n", "合計", "", totalMinPrice, totalPrice);
+		System.out.printf("%-11s %-12s %9s %8s%n", "合計", "", totalMinPrice, totalPrice);
 
 	}
 
