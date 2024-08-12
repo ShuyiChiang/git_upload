@@ -11,21 +11,19 @@ import java.util.Scanner;
 public class Date {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
 		Scanner scanner = new Scanner(System.in);
-		
+
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-		LocalDate date=null;
+		LocalDate date = null;
 
 		while (true) {
 			System.out.print("請輸入日期(yyyy/MM/dd):");
 			String input = scanner.next();
-			
+
 			try {
 				date = LocalDate.parse(input, formatter);
 				break;
-				
+
 			} catch (DateTimeParseException e) {
 				System.out.println("輸入的日期格式不正確，請輸入 yyyy/MM/dd 格式的日期");
 			}

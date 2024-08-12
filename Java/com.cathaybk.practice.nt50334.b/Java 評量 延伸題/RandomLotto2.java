@@ -38,7 +38,7 @@ public class RandomLotto2 {
 
 	public static void descSort(List<Integer> numberList) {
 		for (int i = 0; i < numberList.size() - 1; i++) {
-			for (int j =i+1; j < numberList.size(); j++) {
+			for (int j = i + 1; j < numberList.size(); j++) {
 				if (numberList.get(i) < numberList.get(j)) {
 					int temp = numberList.get(i);
 					numberList.set(i, numberList.get(j));
