@@ -24,7 +24,7 @@ public class Database2 {
 
 	public static void main(String[] args) throws SQLException {
 		try (Connection conn = DriverManager.getConnection(CONN_URL, "student", "student123456");
-				PreparedStatement pstmt = conn.prepareStatement("select * from STUDENT.CARS");) {
+				PreparedStatement pstmt = conn.prepareStatement("select MANUFACTURER, TYPE, MIN_PRICE, PRICE from STUDENT.CARS");) {
 
 			// ResultSet物件儲存查詢結果
 			ResultSet rs = pstmt.executeQuery();
