@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>practice2</title>
+    <style></style>
+    <script type="text/javascript"></script>
+</head>
+
+<body>
+    <img src="./111.jpg"></img>
+    </br>
+
+    <form method="get">
+        <span>英文名:</span>
+        <input type="text" name="NAME" />
+
+        </br>
+
+        <span>哪裡人:</span>
+        <select name="city">
+            <option value="">請選擇</option>
+            <option value="taipei" name="city">台北市</option>
+            <option value="newtaipei" name="city">新北市</option>
+            <option value="hsinchu" name="city">新竹市</option>
+        </select>
+        </br>
+        <span>正式工作經驗:</span>
+        <label><input type="radio" name="workExperience" value="true"/>有</label>
+        <label><input type="radio" name="workExperience" value="false"/>沒有</label>
+
+        </br>
+        <span>語言:</span>
+        <label><input type="checkbox" name="language" value="Chinese"/>國語</label>
+        <label><input type="checkbox" name="language" value="Taiwanese"/>台語</label>
+        <label><input type="checkbox" name="language" value="Other"/>其他</label>
+
+        <table border="1">
+            <tr>
+                <td colspan="3">如果可以出國旅行的話，想去~</td>
+            </tr>
+
+            <tr>
+                <td>1</td>
+                <td><input type="text" name="country" /></td>
+            </tr>
+
+            <tr>
+                <td>2</td>
+                <td><input type="text" name="country" /></td>
+            </tr>
+
+            <tr>
+                <td>3</td>
+                <td><input type="text" name="country" /></td>
+            </tr>
+
+        </table>
+
+        <button type="submit">say HI~</button>
+    </form>
+</body>
+
+</html>
