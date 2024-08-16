@@ -35,8 +35,12 @@
                     document.writeln('&nbsp;&nbsp;&nbsp;&nbsp;' + key + ' = (' + typeof data[key] + ') ' + data[key] + '<br>');
                 }
             }
-
-            document.writeln('｝<br>');
+            if (data instanceof Object) {
+                if (data instanceof Array === false) {
+                    document.writeln('}<br>')
+                }
+            }
+            //document.writeln('｝<br>');
 
 
         };
