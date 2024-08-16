@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8>
+    <script>
+        const bigObj = {
+            firstName: 'Dark'
+            , lastName: 'Liu'
+            , sex: 'M'
+            , weight: 80
+            , married: true
+            , workExp: [{ name: 'cathay life insurence', during: 8 }, { name: 'cathay united bank', during: 6 }]
+            , skill: ['SQL', 'Java', 'JavaScript']
+        };
+
+
+
+        const printFunc = function (data) {
+            // 請在此解析bigObj
+            if (data instanceof Object) {
+                if (data instanceof Array === false) {
+                    document.writeln('(Object) ｛<br>')
+                }
+            }
+            for (var key in data) {
+                if (data[key] instanceof Array) {
+                    document.writeln('&nbsp;&nbsp;&nbsp;&nbsp;' + key + ' = (Array)［<br>');
+                    printFunc(data[key]);
+                    document.writeln('&nbsp;&nbsp;&nbsp;&nbsp;］<br>');
+                } else if (data[key] instanceof Object) {
+                    document.writeln('&nbsp;&nbsp;&nbsp;&nbsp;' + key + ' = ');
+                    printFunc(data[key]);
+                } else {
+                    document.writeln('&nbsp;&nbsp;&nbsp;&nbsp;' + key + ' = (' + typeof data[key] + ') ' + data[key] + '<br>');
+                }
+            }
+
+            document.writeln('｝<br>');
+
+
+        };
+
+
+        //此指令能輸出資訊到頁面上
+        document.writeln('<h1>Practice 5</h1>');
+        printFunc(bigObj);
+
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>
