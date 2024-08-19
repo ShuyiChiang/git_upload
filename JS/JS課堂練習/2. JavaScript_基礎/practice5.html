@@ -14,16 +14,29 @@
             , skill: ['SQL', 'Java', 'JavaScript']
         };
 
-
+		//　設定顯示的縮排字符
+		const charPrintedAtFront = '　';
+		
+		// 全域變數，紀錄現在行數應該要有多少縮排字符
+		let frontBlankCount = -1;
+		
+		
+		// 依據全域變數 frontBlankCount 列印出縮排字符		
+		const printFrontBlank = function() {
+			for (let i = 0; i < frontBlankCount; i++) {
+				document.write(charPrintedAtFront);
+			}
+		};
 
         const printFunc = function (data) {
+            // 每次進入此function時，行數縮排+1
+			frontBlankCount++;
+            
             // 請在此解析bigObj
-            if (data instanceof Object) {
-                if (data instanceof Array === false) {
-                    document.writeln('(Object) ｛<br>')
-                }
+            if (data instanceof Object && !(data instanceof Array)) {
+                    document.writeln('(Object) ｛<br>');
             }
-            for (var key in data) {
+            for (let key in data) {
                 if (data[key] instanceof Array) {
                     document.writeln('&nbsp;&nbsp;&nbsp;&nbsp;' + key + ' = (Array)［<br>');
                     printFunc(data[key]);
@@ -35,12 +48,9 @@
                     document.writeln('&nbsp;&nbsp;&nbsp;&nbsp;' + key + ' = (' + typeof data[key] + ') ' + data[key] + '<br>');
                 }
             }
-            if (data instanceof Object) {
-                if (data instanceof Array === false) {
-                    document.writeln('}<br>')
-                }
+            if (data instanceof Object && !(data instanceof Array)) {
+                document.writeln('&nbsp;&nbsp;&nbsp;&nbsp;}<br>') ;
             }
-            //document.writeln('｝<br>');
 
 
         };
