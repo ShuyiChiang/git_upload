@@ -11,37 +11,36 @@
 
         //顯示結果
         function result() {
-          const resultDiv = document.getElementById("result");
+          const resultDiv = document.getElementById('result');
           const keys = map.keys();
-          resultDiv.innerHTML = "";
+          resultDiv.innerHTML = '';
           for (let i = 0; i < keys.length; i++) {
-            resultDiv.innerHTML += keys[i] + ":" + map.get(keys[i]) + "<br/>";
+            resultDiv.innerHTML += keys[i] + ':' + map.get(keys[i]) + '<br/>';
           }
         }
 
         //按PUT
-        document.getElementById("putBtn").onclick = function () {
-          const key = document.getElementById("keyInput").value;
-          const value = document.getElementById("valueInput").value;
+        document.getElementById('putBtn').onclick = function () {
+          const key = document.getElementById('keyInput').value.trim();
 
-          if (key === "") {
-            return alert("Key不可空白!");
+          if (!key) {
+            return alert('Key不可空白!');
           } else if (map.contains(key)) {
-            return alert("Key重複!");
+            return alert('Key重複!');
           }
-          map.put(key, value);
+          map.put(key, document.getElementById('valueInput').value);
           result();
         };
 
         //按CLEAR
-        document.getElementById("clearBtn").onclick = function () {
+        document.getElementById('clearBtn').onclick = function () {
           map.clear();
 
           //清空輸入格
-          document.getElementById("keyInput").value = "";
-          document.getElementById("valueInput").value = "";
+          document.getElementById('keyInput').value = '';
+          document.getElementById('valueInput').value = '';
 
-          document.getElementById("result").innerHTML = "";
+          document.getElementById('result').innerHTML = '';
         };
       };
     </script>
