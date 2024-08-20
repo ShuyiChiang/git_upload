@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS評量-1</title>
+    <script type="text/javascript" src="HashMap.js"></script>
+    <script type="text/javaScript">
+              window.onload = function () {
+              const map = new HashMap();
+              document.getElementById('putBtn').onclick = function () {
+
+                  const key=document.getElementById('keyInput').value;
+                  const value=document.getElementById('valueInput').value;
+
+                  if(key===''){
+                      return alert("Key不可空白!");
+                  }else if(map.contains(key)){
+                      return alert("Key重複!");
+                  }
+                  map.put(key,value);
+                  result();
+              }
+
+              document.getElementById('clearBtn').onclick = function () {
+                  map.clear();
+                  const key=document.getElementById('keyInput').value='';
+                  const value=document.getElementById('valueInput').value='';
+                  result();
+                  document.getElementById('result').innerHTML = '';
+              }
+
+              function result(){
+                  const resultDiv=document.getElementById('result');
+                  const keys = map.keys();
+                  resultDiv.innerHTML = '';
+                  for (let i = 0; i < keys.length; i++) {
+                      resultDiv.innerHTML += keys[i] + ':' + map.get(keys[i]) + '<br/>';
+                  }
+              }
+      };
+    </script>
+  </head>
+
+  <body>
+    <p style="padding: 20px">
+      <span>KEY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
+      ><input type="text" id="keyInput" />
+      <br />
+      <br />
+      <span>VALUE&nbsp;</span><input type="text" id="valueInput" />
+    </p>
+
+    <hr />
+    <p style="padding: 20px">
+      <button type="submit" id="putBtn">PUT</button>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <button type="submit" id="clearBtn">CLEAR</button>
+    </p>
+    <hr />
+
+    <span style="line-height: 50px">【RESULT】</span>
+    <div id="result" style="padding-left: 30px"></div>
+  </body>
+</html>
