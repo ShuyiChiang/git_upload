@@ -4,40 +4,39 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JS評量-1</title>
-    <script type="text/javascript" src="HashMap.js"></script>
-    <script type="text/javaScript">
-              window.onload = function () {
-              const map = new HashMap();
-              document.getElementById('putBtn').onclick = function () {
+    <script type="" src="HashMap.js"></script>
+    <script type="">
+      window.onload = function () {
+        const map = new HashMap();
+        document.getElementById("putBtn").onclick = function () {
+          const key = document.getElementById("keyInput").value;
+          const value = document.getElementById("valueInput").value;
 
-                  const key=document.getElementById('keyInput').value;
-                  const value=document.getElementById('valueInput').value;
+          if (key === "") {
+            return alert("Key不可空白!");
+          } else if (map.contains(key)) {
+            return alert("Key重複!");
+          }
+          map.put(key, value);
+          result();
+        };
 
-                  if(key===''){
-                      return alert('Key不可空白!');
-                  }else if(map.contains(key)){
-                      return alert('Key重複!');
-                  }
-                  map.put(key,value);
-                  result();
-              }
+        document.getElementById("clearBtn").onclick = function () {
+          map.clear();
+          const key = (document.getElementById("keyInput").value = "");
+          const value = (document.getElementById("valueInput").value = "");
+          result();
+          document.getElementById("result").innerHTML = "";
+        };
 
-              document.getElementById('clearBtn').onclick = function () {
-                  map.clear();
-                  const key=document.getElementById('keyInput').value='';
-                  const value=document.getElementById('valueInput').value='';
-                  result();
-                  document.getElementById('result').innerHTML = '';
-              }
-
-              function result(){
-                  const resultDiv=document.getElementById('result');
-                  const keys = map.keys();
-                  resultDiv.innerHTML = '';
-                  for (let i = 0; i < keys.length; i++) {
-                      resultDiv.innerHTML += keys[i] + ':' + map.get(keys[i]) + '<br/>';
-                  }
-              }
+        function result() {
+          const resultDiv = document.getElementById("result");
+          const keys = map.keys();
+          resultDiv.innerHTML = "";
+          for (let i = 0; i < keys.length; i++) {
+            resultDiv.innerHTML += keys[i] + ":" + map.get(keys[i]) + "<br/>";
+          }
+        }
       };
     </script>
   </head>
