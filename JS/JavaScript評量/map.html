@@ -14,9 +14,9 @@
                   const value=document.getElementById('valueInput').value;
 
                   if(key===''){
-                      return alert("Key不可空白!");
+                      return alert('Key不可空白!');
                   }else if(map.contains(key)){
-                      return alert("Key重複!");
+                      return alert('Key重複!');
                   }
                   map.put(key,value);
                   result();

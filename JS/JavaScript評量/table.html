@@ -26,7 +26,7 @@
                 const price = document.getElementById('priceInput').value;
                 const minPrice = document.getElementById('minPriceInput').value;
 
-                if (!manufacture || !type)return alert("製造商和類別不可空白!");
+                if (!manufacture || !type)return alert('製造商和類別不可空白!');
                 
                 //新增行
                 const row = document.createElement('tr');
@@ -118,11 +118,11 @@
               const minPrice = document.getElementById('minPriceInput').value;
 
               //檢查是否廠商與類別是否填寫
-              if (!manufacture || !type)return alert("製造商和類別不可空白!");
+              if (!manufacture || !type)return alert('製造商和類別不可空白!');
 
               //檢查是否有選中的radio
               const selectedRadio=document.querySelector('input[name="rowSelect"]:checked');
-              if(!selectedRadio)return alert("請選擇要修改的行!");
+              if(!selectedRadio)return alert('請選擇要修改的行!');
               
               //更新選中行的欄位
               const selectedRow=selectedRadio.closest('tr');
