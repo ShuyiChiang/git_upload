@@ -18,9 +18,34 @@
     <script type="">
       window.onload = function () {
         let table = document.getElementById("resultTable");
+        //清空所有輸入框
+        function resetInputs() {
+          document.getElementById("manufactureInput").value = "";
+          document.getElementById("typeInput").value = "";
+          document.getElementById("priceInput").value = "";
+          document.getElementById("minPriceInput").value = "";
+        }
+
+        // 更新序號列
+        function updateRowNumbers() {
+          for (let i = 1; i < table.rows.length; i++) {
+            table.rows[i].cells[1].innerText = i; //cells[1]代表序號列
+          }
+        }
+
+        //新增單元格
+        function createBlock(row, content) {
+          const block = document.createElement("td");
+          if (typeof content === "string") {
+            block.innerText = content;
+          } else {
+            block.appendChild(content);
+          }
+          row.appendChild(block);
+        }
 
         //新增
-        document.getElementById("addBtn").onclick = function () {
+        function addRow() {
           const manufacture = document.getElementById("manufactureInput").value;
           const type = document.getElementById("typeInput").value;
           const price = document.getElementById("priceInput").value;
@@ -30,17 +55,6 @@
 
           //新增行
           const row = document.createElement("tr");
-
-          //新增單元格
-          function createBlock(row, content) {
-            const block = document.createElement("td");
-            if (typeof content === "string") {
-              block.innerText = content;
-            } else {
-              block.appendChild(content);
-            }
-            row.appendChild(block);
-          }
 
           //新增radio按鈕
           const radioInput = document.createElement("input");
@@ -58,45 +72,19 @@
           // 新增刪除按鈕
           const deleteBtn = document.createElement("button");
           deleteBtn.setAttribute("type", "button");
-          deleteBtn.setAttribute("id", "deleteBtn");
           deleteBtn.innerText = "刪除";
+          deleteBtn.innerText = "刪除";
+          //刪除
+          deleteBtn.onclick = function () {
+            table.removeChild(row);
+            updateRowNumbers();
+          };
           createBlock(row, deleteBtn);
 
           // 將整個行新增到表格中
           table.appendChild(row);
-
-          // 清空所有輸入框
-          document.getElementById("manufactureInput").value = "";
-          document.getElementById("typeInput").value = "";
-          document.getElementById("priceInput").value = "";
-          document.getElementById("minPriceInput").value = "";
-
-          //刪除
-          deleteBtn.onclick = function () {
-            this.closest("table").removeChild(this.closest("tr")); // 尋找最近的table刪除最近的tr
-            resetRowNumbers(); //重整序號
-          };
-        };
-
-        //重整序號
-        function resetRowNumbers() {
-          for (let i = 1; i < table.rows.length; i++) {
-            table.rows[i].cells[1].innerText = i; //cells[1]代表序號列
-          }
+          resetInputs(); //清空所有輸入框
         }
-
-        //清空
-        document.getElementById("clearBtn").onclick = function () {
-          // 清空所有輸入框
-          document.getElementById("manufactureInput").value = "";
-          document.getElementById("typeInput").value = "";
-          document.getElementById("priceInput").value = "";
-          document.getElementById("minPriceInput").value = "";
-
-          const header = table.rows[0]; // 保存表頭行
-          table.innerHTML = ""; // 清空整個表格
-          table.appendChild(header); // 重新插入表頭
-        };
 
         //按下radio
         document
@@ -116,7 +104,7 @@
           });
 
         //修改
-        document.getElementById("modifyBtn").onclick = function () {
+        function modifyRow() {
           const manufacture = document.getElementById("manufactureInput").value;
           const type = document.getElementById("typeInput").value;
           const price = document.getElementById("priceInput").value;
@@ -137,7 +125,30 @@
           selectedRow.cells[3].innerText = type;
           selectedRow.cells[4].innerText = minPrice;
           selectedRow.cells[5].innerText = price;
+        }
+
+        document.getElementById("addBtn").onclick = addRow;
+        document.getElementById("modifyBtn").onclick = modifyRow;
+
+        document.getElementById("clearBtn").onclick = function () {
+          resetInputs(); //清空所有輸入框
+          table.innerHTML = table.rows[0].outerHTML; // 保留表頭行
         };
+
+        table.addEventListener("change", function (e) {
+          if (e.target.type === "radio") {
+            // 尋找最近的父元素
+            const selectedRow = e.target.closest("tr");
+            document.getElementById("manufactureInput").value =
+              selectedRow.cells[2].innerText; // 製造商
+            document.getElementById("typeInput").value =
+              selectedRow.cells[3].innerText; // 類別
+            document.getElementById("priceInput").value =
+              selectedRow.cells[4].innerText; // 底價
+            document.getElementById("minPriceInput").value =
+              selectedRow.cells[5].innerText; // 售價
+          }
+        });
       };
     </script>
   </head>
