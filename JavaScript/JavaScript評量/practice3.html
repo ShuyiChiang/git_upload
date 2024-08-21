@@ -99,7 +99,6 @@
                 }
             };
 
-
             function createRadio(name, value) {
                 const radio = document.createElement('input');
                 radio.setAttribute('type', 'radio');// 給 radio 按鈕設置相同的 name，這樣它們就是同一組
@@ -112,7 +111,6 @@
 
                 return label;
             }
-
 
             function addRow(questionObj, questionNum) {
                 const row = document.createElement('tr');
@@ -141,13 +139,8 @@
                 const nextButton = document.createElement('button');
                 nextButton.setAttribute('type', 'button');
                 nextButton.innerText = '下一題';
-                nextButton.disabled = true;
                 nextCell.appendChild(nextButton);
                 row.appendChild(nextCell);
-
-                ansCell.addEventListener('change', function () {
-                    nextButton.disabled = false;
-                });
 
                 // 點擊下一題按鈕時，顯示下一題
                 nextButton.onclick = function () {
@@ -155,8 +148,18 @@
                     const nextIndex = questionObj.ans.indexOf(selectedAnswer);
                     const nextQuestionNum = questionObj.next[nextIndex];
 
+                    // 鎖住上一題的radio選項
+                    const radios = ansCell.querySelectorAll('input[type="radio"]');
+                    for (let i = 0; i < radios.length; i++) {
+                        radios[i].disabled = true;
+                    }
+
+                    // 鎖住上一題的nextButton
+                    nextButton.disabled = true;
+
                     if (psychometricTest[nextQuestionNum]) {
                         addRow(psychometricTest[nextQuestionNum], nextQuestionNum);  // 加載下一題
+
                     } else {
                         showResult(nextQuestionNum);  // 如果沒有下一題，顯示結果
                     }
@@ -171,7 +174,6 @@
                 const resultObj = result[resultLetter];
                 resultDiv.innerHTML = `<h2>${resultLetter} ${resultObj.title}</h2> <p>${resultObj.content}</p> <button onclick="location.reload()">重新測試</button>`
             }
-
 
             addRow(psychometricTest[questionNum], questionNum);
         }
@@ -192,9 +194,6 @@
             <td>選項</td>
             <td></td>
         </tr>
-
-
-
     </table>
     <br>
     <div id="resultDiv"></div>
