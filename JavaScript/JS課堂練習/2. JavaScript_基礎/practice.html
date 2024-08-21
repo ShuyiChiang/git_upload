@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+
+        //practice1-1
+        for (var i = 1; i <= 9; i++) {
+            console.log(i);
+        }
+
+        //practice1-1
+        var num = 0;
+        while (num < 9) {
+            num++;
+            console.log(num);
+        }
+
+        //practice1-2
+        for (var i = 1; i <= 100; i++) {
+            if (i % 3 == 0 && i % 5 != 0) {
+                console.log(i);
+            }
+        }
+
+        var key1 = 'test';
+        var obj = { 'key': key1, key1: 'key1' }
+        for (var tempkey in obj) {
+            console.log(tempkey + ':' + obj[tempkey]);
+        }
+        //key:test
+        //key1:key1
+
+        var key = 'test';
+        var obj = { 'key': key, key: 'key' }
+        for (var tempkey in obj) {
+            console.log(tempkey + ':' + obj[tempkey]);
+        }
+        //key:key
+
+        var array1 = [];
+        var array2 = array1;
+        array2.push('123');
+        console.log(array1.length);//1
+
+        //practice2-1
+        var obj1 = {
+            name: '幸運兒',
+            age: 20,
+            lottory: [1, 5, 29, 41, 37, 15]
+        }
+
+        //practice2-2
+        var origin = {
+            '王大明': 89,
+            '張小美': 97,
+            '李鐵柱': 18,
+            '謝小天': 22
+        }
+
+        for (var key in origin) {
+            if (origin[key] <= 95) {
+                origin[key] += 5;
+            } else { origin[key] = 100 }
+        }
+        console.log(origin);
+
+        for (var key in origin) {
+            origin[key] = origin[key] > 94 ? 100 : origin[key] + 5
+            console.log(key + ':' + origin[key]);
+        }
+
+        var func = function (str) {
+            console.log('func=' + str);
+        };
+
+        function func(str, str2) {
+            console.log('func override=' + str);
+        };
+
+        func('1');
+
+
+
+        //practice3
+        var arr = [6, 5, '草莓大福', false, undefined, '抹茶拿鐵', [], function () { }, {}]
+        for (var val of arr) {
+            val instanceof Array ? console.log('array') : console.log(typeof val);
+        }
+
+
+
+        var a = 10;
+        if (a < 100) {
+            var b = 20;
+        }
+        console.log(b);//20
+
+        var func = function () {
+            var str1 = 'funcString';
+            var func2 = function () {
+                console.log('str1 =' + str1);
+            }
+            func2();
+        };
+        func();//str1 =funcString
+
+        str = 'string';
+        var func = function () {
+            var str = 'funcString';
+            console.log('func get window.str = ' + window.str);
+            console.log('func get str = ' + str);
+        };
+        console.log('before = ' + window.str);
+        func();
+        console.log('after = ' + window.str);
+
+        // before = string
+        // func get window.str = string
+        // func get str = funcString
+        // after = string
+
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

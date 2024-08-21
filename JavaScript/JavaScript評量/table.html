@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS評量-2</title>
+    <style>
+      table {
+        border-collapse: collapse;
+      }
+
+      td {
+        border: 1px solid black;
+        text-align: center;
+        padding: 10px;
+      }
+    </style>
+    <script type="">
+      window.onload = function () {
+        let table = document.getElementById('resultTable');
+        //清空所有輸入框
+        function resetInputs() {
+          document.getElementById('manufactureInput').value = '';
+          document.getElementById('typeInput').value = '';
+          document.getElementById('minPriceInput').value = '';
+          document.getElementById('priceInput').value = '';
+        }
+
+        // 更新序號列
+        function updateRowNumbers() {
+          for (let i = 1; i < table.rows.length; i++) {
+            table.rows[i].cells[1].innerText = i; //cells[1]代表序號列
+          }
+        }
+
+        //新增單元格
+        function createBlock(row, content) {
+          const block = document.createElement('td');
+          if (typeof content === 'string') {
+            block.innerText = content;
+          } else {
+            block.appendChild(content);
+          }
+          row.appendChild(block);
+        }
+
+        //新增
+        function addRow() {
+          const manufacture = document.getElementById('manufactureInput').value.trim();
+          const type = document.getElementById('typeInput').value.trim();
+          const minPrice = document.getElementById('minPriceInput').value;
+          const price = document.getElementById('priceInput').value;
+
+          if (!manufacture || !type) return alert('製造商和類別不可空白!');
+
+          //新增行
+          const row = document.createElement('tr');
+
+          //新增radio按鈕
+          const radioInput = document.createElement('input');
+          radioInput.setAttribute('type', 'radio');
+          radioInput.setAttribute('name', 'rowSelect');
+          createBlock(row, radioInput);
+
+          // 新增各個資料到單元格
+          createBlock(row, table.rows.length.toString()); // 序號
+          createBlock(row, manufacture); // 製造商
+          createBlock(row, type); // 類別
+          createBlock(row, minPrice); // 底價
+          createBlock(row, price); // 售價
+
+          // 新增刪除按鈕
+          const deleteBtn = document.createElement('button');
+          deleteBtn.setAttribute('type', 'button');
+          deleteBtn.innerText = '刪除';
+          
+          //刪除
+          deleteBtn.onclick = function () {
+            table.removeChild(row);
+            updateRowNumbers();
+          };
+          createBlock(row, deleteBtn);
+
+          // 將整個行新增到表格中
+          table.appendChild(row);
+          resetInputs(); //清空所有輸入框
+        }
+
+        //修改
+        function modifyRow() {
+          const manufacture = document.getElementById('manufactureInput').value.trim();
+          const type = document.getElementById('typeInput').value.trim();
+          const minPrice = document.getElementById('minPriceInput').value;
+          const price = document.getElementById('priceInput').value;
+
+          //檢查是否廠商與類別是否填寫
+          if (!manufacture || !type){
+            return alert('製造商和類別不可空白!');
+          }
+
+          //檢查是否有選中的radio
+          const selectedRadio = document.querySelector(
+            'input[name="rowSelect"]:checked'
+          );
+          if (!selectedRadio){
+            return alert('請選擇要修改的行!');
+          }
+
+          //更新選中行的欄位
+          const selectedRow = selectedRadio.closest('tr');
+          selectedRow.cells[2].innerText = manufacture;
+          selectedRow.cells[3].innerText = type;
+          selectedRow.cells[4].innerText = minPrice;
+          selectedRow.cells[5].innerText = price;
+        }
+
+        document.getElementById('addBtn').onclick = addRow;
+        document.getElementById('modifyBtn').onclick = modifyRow;
+
+        document.getElementById('clearBtn').onclick = function () {
+          resetInputs(); //清空所有輸入框
+          table.innerHTML = table.rows[0].outerHTML; // 保留表頭行
+        };
+
+        //按下radio
+        table.addEventListener('change', function (e) {
+          if (e.target.type === 'radio') {
+            // 尋找最近的父元素
+            const selectedRow = e.target.closest('tr');
+            document.getElementById('manufactureInput').value =
+              selectedRow.cells[2].innerText; // 製造商
+            document.getElementById('typeInput').value =
+              selectedRow.cells[3].innerText; // 類別
+            document.getElementById('minPriceInput').value =
+              selectedRow.cells[4].innerText; // 底價
+            document.getElementById('priceInput').value =
+              selectedRow.cells[5].innerText; // 售價
+          }
+        });
+      };
+    </script>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <td>製造商</td>
+        <td><input type="text" id="manufactureInput" /></td>
+        <td>類別</td>
+        <td><input type="text" id="typeInput" /></td>
+      </tr>
+
+      <tr>
+        <td>底價</td>
+        <td><input type="text" id="minPriceInput" /></td>
+        <td>售價</td>
+        <td><input type="text" id="priceInput" /></td>
+      </tr>
+
+      <tr>
+        <td colspan="4">
+          <button type="submit" id="addBtn">新增</button>
+          <button type="submit" id="modifyBtn">修改</button>
+          <button type="submit" id="clearBtn">清空</button>
+        </td>
+      </tr>
+    </table>
+
+    <br />
+
+    <table id="resultTable">
+      <tr>
+        <td></td>
+        <td>序號</td>
+        <td>製造商</td>
+        <td>類別</td>
+        <td>底價</td>
+        <td>售價</td>
+        <td></td>
+      </tr>
+    </table>
+  </body>
+</html>

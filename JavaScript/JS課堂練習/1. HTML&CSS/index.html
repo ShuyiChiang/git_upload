@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>展示</title>
+    <style></style>
+    <script type="text/javascript">
+        console.log(1 + 2 * 3);//7
+        console.log((1 + 2) / 3);//1
+        console.log(2 - '1');//1
+        console.log(2 + '1');//21
+        console.log(2 * 's');//NaN
+
+        var x;
+        var y = x;
+        console.log(y);//undefined
+
+        console.log('1' == 1);//true
+        console.log('1' === 1);//false
+
+        var value='0';
+        if(value){
+            console.log('true');//true
+        }else{
+            console.log('false');
+        }
+
+        for(var i=1;i<=9;i++){
+            console.log(i);
+        }
+    </script>
+    <link href="./style.css" rel="stylesheet">
+</head>
+
+<body>
+    <p>投資一定有風險</p>
+    <p>基金投資有賺有賠</p>
+    <p>申購前應詳閱公開說明書</p>
+
+    <div style="background-color: rgb(184, 184, 184);">
+        Hello World
+    </div>
+
+    <a href="https://cathaybk.com.tw/cathaybk/" target="_blank">a link to cathay bank</a>
+    <span>[Information]</span>
+    <input type="text" value="123" maxlength="5" />
+
+    <label><input type="radio" name="sex" />male</label>
+    <label><input type="radio" name="sex" />female</label>
+
+    <input type="checkbox" checked disabled />
+    <input type="date" />
+
+    <select>
+        <option value="">select</option>
+        <option value="001" selected>Taipei</option>
+        <option value="002">New Taipei City</option>
+    </select>
+
+    <button type="submit">submit</button>
+    <button type="reset">reset</button>
+    <button type="button">...</button>
+    <br />
+
+    <table border="1">
+        <tr>
+            <th>Month</th>
+            <th>Savings</th>
+            <th>Total</th>
+        </tr>
+        <tr>
+            <td>Jan</td>
+            <td>100</td>
+            <td rowspan="2">180<button>GO</button></td>
+        </tr>
+        <tr>
+            <td>Feb</td>
+            <td>80</td>
+        </tr>
+    </table>
+
+    <form method="post">
+        Name:<input type="text" name="peopleName" />
+        Date:<input type="date" name="inputDate" />
+        <button type="submit">submit</button>
+        <button type="reset">reset</button>
+    </form>
+</body>
+
+</html>
