@@ -51,7 +51,9 @@
           const minPrice = document.getElementById('minPriceInput').value;
           const price = document.getElementById('priceInput').value;
 
-          if (!manufacture || !type) return alert('製造商和類別不可空白!');
+          if (!manufacture || !type){
+            return alert('製造商和類別不可空白!');
+          }
 
           //新增行
           const row = document.createElement('tr');
