@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JS評量-2</title>
-    <style>
-      table {
-        border-collapse: collapse;
-      }
 
-      td {
-        border: 1px solid black;
-        text-align: center;
-        padding: 10px;
-      }
-    </style>
-    <script type="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JS評量-2</title>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+
+    td {
+      border: 1px solid black;
+      text-align: center;
+      padding: 10px;
+    }
+  </style>
+  <script type="">
       window.onload = function () {
         let table = document.getElementById('resultTable');
         //清空所有輸入框
@@ -53,6 +54,10 @@
 
           if (!manufacture || !type){
             return alert('製造商和類別不可空白!');
+          }else if(minPrice<0 || price<0){
+            return alert('底價和售價不能是負值!');
+          }else if(minPrice>price){
+            return alert('底價不可高於售價!');
           }
 
           //新增行
@@ -141,44 +146,46 @@
         });
       };
     </script>
-  </head>
-  <body>
-    <table>
-      <tr>
-        <td>製造商</td>
-        <td><input type="text" id="manufactureInput" /></td>
-        <td>類別</td>
-        <td><input type="text" id="typeInput" /></td>
-      </tr>
+</head>
 
-      <tr>
-        <td>底價</td>
-        <td><input type="text" id="minPriceInput" /></td>
-        <td>售價</td>
-        <td><input type="text" id="priceInput" /></td>
-      </tr>
+<body>
+  <table>
+    <tr>
+      <td>製造商</td>
+      <td><input type="text" id="manufactureInput" /></td>
+      <td>類別</td>
+      <td><input type="text" id="typeInput" /></td>
+    </tr>
 
-      <tr>
-        <td colspan="4">
-          <button type="submit" id="addBtn">新增</button>
-          <button type="submit" id="modifyBtn">修改</button>
-          <button type="submit" id="clearBtn">清空</button>
-        </td>
-      </tr>
-    </table>
+    <tr>
+      <td>底價</td>
+      <td><input type="text" id="minPriceInput" /></td>
+      <td>售價</td>
+      <td><input type="text" id="priceInput" /></td>
+    </tr>
 
-    <br />
+    <tr>
+      <td colspan="4">
+        <button type="submit" id="addBtn">新增</button>
+        <button type="submit" id="modifyBtn">修改</button>
+        <button type="submit" id="clearBtn">清空</button>
+      </td>
+    </tr>
+  </table>
 
-    <table id="resultTable">
-      <tr>
-        <td></td>
-        <td>序號</td>
-        <td>製造商</td>
-        <td>類別</td>
-        <td>底價</td>
-        <td>售價</td>
-        <td></td>
-      </tr>
-    </table>
-  </body>
+  <br />
+
+  <table id="resultTable">
+    <tr>
+      <td></td>
+      <td>序號</td>
+      <td>製造商</td>
+      <td>類別</td>
+      <td>底價</td>
+      <td>售價</td>
+      <td></td>
+    </tr>
+  </table>
+</body>
+
 </html>
