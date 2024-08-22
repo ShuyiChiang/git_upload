@@ -5,11 +5,32 @@
     window.onload = function(){
 
 		const quizJSON = '{"Q1":{"question":"新台幣兩百元鈔票上的人物是下列何者？","score":"15","answer":"蔣介石"},"Q2":{"question":"下列何者是「行動電話緊急救難專線」？","score":"10","answer":"112"},"Q3":{"question":"撲克牌中唯一沒有鬍子的老K是哪一張？","score":"30","answer":"紅心Ｋ"},"Q4":{"question":"請問胎兒在媽媽的肚子裡不會有以下哪種行為？","score":"25","answer":"放屁"},"Q5":{"question":"綠色細胞中的葉綠體存在細胞的何種構造中？","score":"20","answer":"細胞質"}}';
-		
+		const quiz = JSON.parse(quizJSON);
+		const keys = Object.keys(quiz);
 		
 		document.getElementById('send').onclick = function(){
-		
-			
+			let total=0;
+
+			for(let key of keys){
+				let score=0;
+				const answer=quiz[key].answer;
+
+				//遍歷歷每一題
+				for(let input of document.querySelectorAll('[name=' + key +']')){
+					const span=input.nextElementSibling;//取得相鄰span元素
+					if(span.innerHTML == answer){
+						if(input.checked){
+							span.style.color='black';
+							score = Number(quiz[key].score);
+							total+=score;
+						}else{
+							span.style.color='red';
+						}
+					}
+				}
+				document.getElementById(key).innerHTML=score;
+			}
+			document.getElementById('total').innerHTML=total;
         };
     };
 	
