@@ -11,24 +11,24 @@
 		document.getElementById('send').onclick = function(){
 			let total=0;
 
-			for(let key of keys){
+			for(let questionNum of keys){
 				let score=0;
-				const answer=quiz[key].answer;
+				const answer=quiz[questionNum].answer;
 
 				//遍歷歷每一題
-				for(let input of document.querySelectorAll('[name=' + key +']')){
+				for(let input of document.querySelectorAll('[name=' + questionNum +']')){
 					const span=input.nextElementSibling;//取得相鄰span元素
 					if(span.innerHTML == answer){
 						if(input.checked){
 							span.style.color='black';
-							score = Number(quiz[key].score);
+							score = Number(quiz[questionNum].score);
 							total+=score;
 						}else{
 							span.style.color='red';
 						}
 					}
 				}
-				document.getElementById(key).innerHTML=score;
+				document.getElementById(questionNum).innerHTML=score;
 			}
 			document.getElementById('total').innerHTML=total;
         };
